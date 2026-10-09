@@ -28,6 +28,8 @@ COPY --from=builder /app/server ./server
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/next.config.ts ./next.config.ts
+# next.config.ts is transpiled at startup; typescript is a devDependency and is not in node_modules above.
+COPY --from=builder /app/node_modules/typescript ./node_modules/typescript
 
 EXPOSE 3000
 
